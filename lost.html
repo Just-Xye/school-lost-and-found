@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lost Items</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background-image :url(abstract-bg-3.png);
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background-size:cover;
+    background-position:center;
+    background-attachment: fixed;
+    opacity: 0;
+    animation: fadein 2s ease forwards;
+}
+@keyframes fadein {
+    to { opacity: 1;}
+}
+.search-wrapper {
+    width:750px;
+    max-width: 95%;
+    margin-bottom: 1rem;
+    background: transparent;
+    padding-top: 25px;
+}
+.header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 60px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s;
+}
+.input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: white;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+    
+.input::placeholder {
+    color: #9e9ea7;
+}
+    
+.input:focus, .input:hover {
+    outline: none;
+    border-color: #aab5e7;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.2);
+}
+    
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+.group:focus-within .icon {
+    fill: #667eea;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width:800px;
+    max-width:95%;
+    background:transparent;
+    padding:30px;
+    border-radius:10px;
+    font-family: Nunito, 'Times New Roman', sans-serif;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+.group:focus-within {
+    box-shadow: 0 6px 18px rgba(110, 76, 234, 0.2);
+}
+h1{
+    margin-bottom:20px;
+}
+
+.items-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap:20px;
+    text-align:left;
+}
+.item{
+    background:transparent;
+    border: 1px solid #ddd;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.item:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+.item h3{
+    margin-bottom:5px;
+}
+
+.meta{
+    font-size:0.9rem;
+    color:#666;
+}
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    background:#667eea;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+.back-btn{
+    background:white;
+    color:#333;
+    top: 10px;
+    left: 20px;
+    position: absolute;
+    font-family: 'Nunito', 'Times New Roman', sans-serif;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.back-btn:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.report-btn{
+    grid-column: -1;
+    justify-self: end;
+    align-self: start;
+    width: 160px;
+    background:white;
+    color: #0d0c22;
+    font-family: 'Nunito', 'Times New Roman', sans-serif;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(37, 37, 37, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.report-btn:hover{
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.lost-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+}
+@media (max-width: 600px) {
+    .back-btn {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+    .search-wrapper {
+        margin-top: 15px;
+    }
+    .report-btn {
+        width: 200px;
+        margin-left: 0;
+    }
+}    
+</style>
+</head>
+<body>
+<div class="search-wrapper">
+    <div class="group">
+    <input type="text" class="input" placeholder="Search...">
+        <svg class="icon" viewBox="0 0 24 24">
+            <g>
+                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+            </g>
+        </svg>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header">
+    <h1>Lost Items</h1>
+
+    <div class="report-btn" onclick="redirectToReport()">
+        <span>Report Lost Item ></span>
+    </div>
+    </div>
+
+    <div class="items-grid">
+    <a href="lost-items/item-1.html" class="item">
+        <img src="lost-images/item-1.webp" alt="Black Wallet" class="lost-image">
+        <h3>Black Wallet</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Library</p>
+        <p class="meta">Date Found: 2024-05-15</p>
+        <p class="meta">Description: Black leather wallet with a silver logo</p>
+    </a>
+    <a href="lost-items/item-2.html" class="item">
+        <img src="lost-images/item-2.webp" alt="Silver Ring" class="lost-image">
+        <h3>Silver Ring</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Gym</p>
+        <p class="meta">Date Found: 2024-05-20</p>
+        <p class="meta">Description: Silver ring with small engravings</p>
+    </a>
+    <a href="lost-items/item-3.html" class="item">
+        <img src="lost-images/item-3.webp" alt="Blue Backpack" class="lost-image">
+        <h3>Blue Backpack</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Parking Lot</p>
+        <p class="meta">Date Found: 2024-05-18</p>
+        <p class="meta">Description: Blue backpack with a red zipper</p>
+    </a>
+    <a href="lost-items/item-4.html" class="item">
+        <img src="lost-images/item-4.webp" alt="Red Umbrella" class="lost-image">
+        <h3>Red Umbrella</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Cafeteria</p>
+        <p class="meta">Date Found: 2024-05-17</p>
+        <p class="meta">Description: Red umbrella with a yellow handle</p>
+    </a>
+    <a href="lost-items/item-5.html" class="item">
+        <img src="lost-images/item-5.webp" alt="Green Scarf" class="lost-image">
+        <h3>Green Scarf</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Library</p>
+        <p class="meta">Date Found: 2024-05-16</p>
+        <p class="meta">Description: Knitted green scarf</p>
+    </a>
+    <a href="lost-items/item-6.html" class="item">
+        <img src="lost-images/item-6.webp" alt="Yellow Hat" class="lost-image">
+        <h3>Yellow Hat</h3>
+        <p class="meta">Location: Faculty</p>
+        <p class="meta">Found at: Student Center</p>
+        <p class="meta">Date Found: 2024-05-19</p>
+        <p class="meta">Description: Woven yellow bowler hat</p>
+    </a>
+    </div>
+</div>
+
+<div class="button-group">
+    <button class="btn back-btn" onclick="goBack()">Back</button>
+</div>
+
+    <script>
+    function goBack(){
+        window.location.href="index.html";
+    }
+    function redirectToReport() {
+        window.location.href = "report.html";
+    }
+    </script>
+</body>
+</html>
